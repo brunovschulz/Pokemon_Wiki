@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ pokemon[1] }} - Wiki Pokémon</title>
+</head>
+<body>
+    <h1>{{ pokemon[1] }}</h1>
+
+    <p>Elemento primário: {{ elementos[0][0] }}</p>
+
+    {% if elementos|length > 1 %}
+        <p>Elemento Secundário: {{ elementos[1][0] }}</p>
+    {% endif %}
+
+    <img src="{{ url_for('static', filename='images/' + pokemon[0]|string + '.png') }}" alt="{{ pokemon[1] }}">
+
+    {% if evolucoes|length > 1 %}
+        <h2>Evoluções</h2>
+    {% endif %}
+    <ul>
+        {% for evolucao in evolucoes %}
+            <li>
+                <a href="{{ url_for('pokemon_page', pokemon_id=evolucao[0]) }}">
+                    {{ evolucao[1] }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
