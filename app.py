@@ -32,6 +32,17 @@ def pokemon_page(pokemon_id):
     evolucoes = list(evolucoes) #era tupla
     evolucoes.pop(0) #retirando o próprio pokémon
 
+    #lista de atributos
+    atrib = [
+        ("HP", pokemon[18]),
+        ("Ataque", pokemon[19]),
+        ("Defesa", pokemon[20]),
+        ("Especial Ataque", pokemon[21]),
+        ("Especial Defesa", pokemon[22]),
+        ("Velocidade", pokemon[23]),
+        ("Total de Pontos", pokemon[17]),
+    ]
+
     #debug
     print(pokemon)
     print(elementos)
@@ -44,7 +55,10 @@ def pokemon_page(pokemon_id):
     if not pokemon:
         return "Pokémon não encontrado", 404
 
-    return render_template('pokemon.html', pokemon=pokemon, elementos=elementos, evolucoes=evolucoes, habilidades = habilidades, multiplicadores = multiplicadores)
+    #17-23 -> atributos de combate
+    return render_template('pokemon.html', 
+    pokemon=pokemon, elementos=elementos, evolucoes=evolucoes, habilidades = habilidades, 
+    multiplicadores = multiplicadores, atrib = atrib)
 
 @app.route('/pokedex') #troquei rota com pokedex para facilitar
 def home():

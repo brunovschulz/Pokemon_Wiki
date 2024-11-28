@@ -41,6 +41,26 @@
             background-color: white;
             color: black;
         }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
+        .total {
+            font-size: 14px;
+            /* font-weight: bold; */
+            margin-top: 20px;
+            color: #000000;
+        }
+        
     </style>
 </head>
 <body>
@@ -55,27 +75,87 @@
             <a href="/ovos">Ovos</a>
         </div>
     </div>
-    <h1>{{ pokemon[1] }}</h1>
 
-    <p>Elemento primário: {{ elementos[0][0] }}</p>
+    <div style="text-align: center;">
 
-    {% if elementos|length > 1 %}
-        <p>Elemento Secundário: {{ elementos[1][0] }}</p>
-    {% endif %}
+        <h1>{{ pokemon[1] }}</h1>
 
-    <img src="{{ url_for('static', filename='images/' + pokemon[0]|string + '.png') }}" alt="{{ pokemon[1] }}">
+        <p>Elemento primário: {{ elementos[0][0] }}</p>
 
-    {% if evolucoes|length > 1 %}
+        {% if elementos|length > 1 %}
+            <p>Elemento Secundário: {{ elementos[1][0] }}</p>
+        {% endif %}
+
+        <!-- EVOLUÇÕES FICA COM POSIÇÃO ESTRANHA -->
+        {% if evolucoes|length > 1 %}
         <h2>Evoluções</h2>
-    {% endif %}
-    <ul>
-        {% for evolucao in evolucoes %}
-            <li>
-                <a href="{{ url_for('pokemon_page', pokemon_id=evolucao[0]) }}">
-                    {{ evolucao[1] }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+        {% endif %}
+
+        <ul style="list-style-type: none"> <!-- tirando pontos -->
+            {% for evolucao in evolucoes %}
+                <li>
+                    <a href="{{ url_for('pokemon_page', pokemon_id=evolucao[0]) }}">
+                        {{ evolucao[1] }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+
+    <img src="{{ url_for('static', filename='images/' + pokemon[0]|string + '.png') }}" alt="{{ pokemon[1] }}" style="display: block; margin: auto;">
+
+    <div class="container">
+        <p>Atributos de combate</p>
+        <canvas id="attributesChart"></canvas>
+        <div class="total">
+            Total de Pontos: {{ atrib[-1][1] }} 
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // Dados passados pelo Flask
+        const at = {{ atrib|tojson }};
+        const atributos = at.slice(0,-1);
+        const labels = atributos.map(attr => attr[0]);
+        const dataValues = atributos.map(attr => attr[1]);
+
+        const colors = dataValues.map(value => {
+            if (value > 90) return 'green';
+            if (value >= 60) return 'yellow';
+            return 'red';
+        });
+
+        const ctx = document.getElementById('attributesChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar', 
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Atributos de Combate',
+                    data: dataValues,
+                    backgroundColor: colors,
+                    borderColor: 'black',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: true }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 160
+                    }
+                }
+            }
+        });
+    </script>
+
 </body>
 </html>
