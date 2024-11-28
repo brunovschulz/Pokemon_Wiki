@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wiki Pokémon</title>
+    <title>Tipo de Ovo</title>
     <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
 
         .header {
             display: flex;
@@ -25,11 +29,6 @@
 
         .header a img:hover {
             transform: scale(1.1); /* Aumenta levemente o tamanho ao passar o mouse */
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
         }
 
         .nav-buttons { /*   */
@@ -64,6 +63,12 @@
             <a href="/ovos">Ovos</a>
         </div>
     </div>
-    <h1>Home (tá trocado)</h1>
+
+    <h1>Pokémon com Ovo Tipo</h1>
+        {% for pokemon in pokemon_ovo %}
+            <li><a href="/pokemon/{{ pokemon[0] }}">{{ pokemon[1] }}</a></li>
+        {% endfor %}
+    </ul> 
+
 </body>
 </html>
