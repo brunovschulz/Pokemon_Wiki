@@ -14,6 +14,11 @@ def pokemon_page(pokemon_id):
     cursor.execute(qr_poke(), (pokemon_id))
     pokemon = cursor.fetchone()
 
+    #ovos
+    ovos = [pokemon[10]]
+    if pokemon[11]:
+        ovos.append(pokemon[11])
+
     #elementos
     cursor.execute(qr_el(), (pokemon[7], pokemon[8]))
     elementos = cursor.fetchall()
@@ -58,7 +63,7 @@ def pokemon_page(pokemon_id):
     #17-23 -> atributos de combate
     return render_template('pokemon.html', 
     pokemon=pokemon, elementos=elementos, evolucoes=evolucoes, habilidades = habilidades, 
-    multiplicadores = multiplicadores, atrib = atrib)
+    multiplicadores = multiplicadores, atrib = atrib, ovos = ovos)
 
 @app.route('/pokedex') #troquei rota com pokedex para facilitar
 def home():
@@ -91,7 +96,7 @@ def ovos():
 
     #print(ovos)
     conn.close()
-    return render_template('ovos.html', ovos = ovos) 
+    return render_template('tipos_ovo.html', ovos = ovos) 
 
 #lista os pokémons de um tipo de ovo
 @app.route('/ovos/<string:tipo_ovo>')
@@ -105,5 +110,5 @@ def ovo(tipo_ovo):
 
     print(pokemon_ovo)
     conn.close()
-    return render_template('tipo_ovo.html', pokemon_ovo = pokemon_ovo, nome_ovo = tipo_ovo) 
+    return render_template('ovo.html', pokemon_ovo = pokemon_ovo, nome_ovo = tipo_ovo) 
 

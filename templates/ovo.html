@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wiki Pokémon</title>
+    <title>Tipo de Ovo</title>
     <style>
         body {
             margin: 0;
@@ -50,7 +50,7 @@
             color: black;
         }
 
-        /* Caixa com a Pokedex */
+        /* Caixa com a Pokemon do Ovo */
         .info-box {
             width: 400px;
             margin: 20px auto; 
@@ -124,18 +124,19 @@
             <a href="/ovos">Ovos</a>
         </div>
     </div>
-
+    
     <div class="info-box">
-        <h3>Pokedéx de Kanto</h3>
+        <h3>Pokémon de {{ tipo_ovo }}</h3>
         <div class="hiperlinks">
-            {% for pokemon in pokemons %}
+            {% for pokemon in pokemon_ovo %}
                 <div class="section">
-                    <a href="{{ url_for('pokemon_page', pokemon_id=pokemon[0]) }}">
+                    <a href="/pokemon/{{ pokemon[0] }}">
                         {{ pokemon[1] }}
                     </a>
                 </div>
             {% endfor %}
         </div>
     </div>
+
 </body>
 </html>

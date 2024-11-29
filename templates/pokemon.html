@@ -60,6 +60,62 @@
             margin-top: 20px;
             color: #000000;
         }
+
+        /* Caixa centralizada embaixo do gráfico de atributos de combate*/
+        .info-box {
+            width: 800px;
+            margin: 20px auto; 
+            background-color: #eaeaea;
+            border-radius: 15px; /* Bordas arredondadas */
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+        }
+
+        /* seções da caixa */
+        .section {
+            padding: 10px 0;
+            /*text-align: center; Centraliza texto */
+        }
+
+        .section:not(:last-child) {
+            border-bottom: 1px solid white; /* Linha branca entre seções */
+        }
+
+        /* Títulos das seções */
+        .section h3 {
+            margin: 0; 
+            font-size: 1.2em; 
+            color: #333;
+        }
+
+        /* Texto das seções */
+        .section p {
+            margin: 10px 0 0;
+            margin-left: 10px;
+            font-size: 1em;
+            color: #555;
+        }
+
+        /* Estilo para hiperlinks */
+        .hiperlinks {
+            /*text-align: center; Centraliza o texto */
+            font-size: 1em; 
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .hiperlinks a {
+            text-decoration: none; /* Remove sublinhado dos links */
+            color: #333;
+            font-weight: bold;
+        }
+
+        .hiperlinks a:hover {
+            color: #555; /* Altera para cinza escuro ao passar o mouse */
+        }
+
         
     </style>
 </head>
@@ -79,27 +135,6 @@
     <div style="text-align: center;">
 
         <h1>{{ pokemon[1] }}</h1>
-
-        <p>Elemento primário: {{ elementos[0][0] }}</p>
-
-        {% if elementos|length > 1 %}
-            <p>Elemento Secundário: {{ elementos[1][0] }}</p>
-        {% endif %}
-
-        <!-- EVOLUÇÕES FICA COM POSIÇÃO ESTRANHA -->
-        {% if evolucoes|length > 1 %}
-        <h2>Evoluções</h2>
-        {% endif %}
-
-        <ul style="list-style-type: none"> <!-- tirando pontos -->
-            {% for evolucao in evolucoes %}
-                <li>
-                    <a href="{{ url_for('pokemon_page', pokemon_id=evolucao[0]) }}">
-                        {{ evolucao[1] }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
 
     </div>
 
@@ -156,6 +191,48 @@
             }
         });
     </script>
+
+    <div class="info-box">
+
+        <div class="section">
+
+            <h3>Elemento</h3>
+
+            <p>Primário: {{ elementos[0][0] }}</p>
+
+            {% if elementos|length > 1 %}
+                <p>Secundário: {{ elementos[1][0] }}</p>
+            {% endif %}
+
+        </div>
+
+        {% if evolucoes|length > 0 %}
+            <div class="section">
+                <h3>Evoluções</h3>
+                <p class="hiperlinks">
+                    {% for evolucao in evolucoes %}
+                        <a href="{{ url_for('pokemon_page', pokemon_id=evolucao[0]) }}">
+                            {{ evolucao[1] }}
+                        </a>
+                        {% if not loop.last %} → {% endif %} <!-- Adiciona a seta se não for o último -->
+                    {% endfor %}
+                </p>
+            </div>
+        {% endif %}
+
+
+        <div class="section">
+            <h3>Ovos</h3>
+            <p class="hiperlinks">
+                {% for ovo in ovos %}
+                    <a href="{{ url_for('ovo', tipo_ovo = ovo) }}">
+                        {{ ovo }}
+                    </a>
+                    <br> <!-- Quebra linha -->
+                {% endfor %}
+            </p>
+        </div>
+
 
 </body>
 </html>
