@@ -206,6 +206,26 @@
 
         </div>
 
+        <div class="section">
+
+            <h3>Habilidades</h3>
+
+            <p>{{ habilidades[0][0] }}</p>
+
+            {% if habilidades|length > 1 %}
+                <p>{{ habilidades[1][0] }}</p>
+            {% endif %}
+
+            {% if habilidades_secretas|length > 0 %}
+
+                {% for habilidade_sec in habilidades_secretas %}
+                    <p>{{ habilidade_sec[0] }} (secreta)</p>  
+                {% endfor %}
+
+            {% endif %}
+
+        </div>
+
         {% if evolucoes|length > 0 %}
             <div class="section">
                 <h3>Evoluções</h3>

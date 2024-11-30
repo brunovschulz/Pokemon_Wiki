@@ -26,6 +26,15 @@ def pokemon_page(pokemon_id):
     #habilidades
     cursor.execute(qr_hab(), (pokemon_id))
     habilidades = cursor.fetchall()
+    habilidades = list(habilidades)
+    habilidades_secretas = []
+
+    #separando habilidades normais das secretas
+    for habilidade in habilidades:
+        if int(habilidade[1]) == 1:
+            habilidades_secretas.append(habilidade)
+            habilidades.remove(habilidade)
+
 
     #multiplicadores
     cursor.execute(qr_mult(), (pokemon_id))
@@ -53,6 +62,7 @@ def pokemon_page(pokemon_id):
     print(elementos)
     print(evolucoes)
     print(habilidades)
+    print(habilidades_secretas)
     print(multiplicadores)
 
     conn.close()
@@ -63,7 +73,7 @@ def pokemon_page(pokemon_id):
     #17-23 -> atributos de combate
     return render_template('pokemon.html', 
     pokemon=pokemon, elementos=elementos, evolucoes=evolucoes, habilidades = habilidades, 
-    multiplicadores = multiplicadores, atrib = atrib, ovos = ovos)
+    habilidades_secretas = habilidades_secretas, multiplicadores = multiplicadores, atrib = atrib, ovos = ovos)
 
 @app.route('/pokedex') #troquei rota com pokedex para facilitar
 def home():
