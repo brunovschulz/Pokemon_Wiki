@@ -88,9 +88,16 @@
             color: #333;
         }
 
+        /* Títulos das subseções */
+        .section h2 {
+            margin: 8px; 
+            font-size: 1.2em; 
+            color: #333;
+        }
+
         /* Texto das seções */
         .section p {
-            margin: 10px 0 0;
+            margin: 14px 0 0;
             margin-left: 10px;
             font-size: 1em;
             color: #555;
@@ -98,12 +105,16 @@
 
         /* Estilo para hiperlinks */
         .hiperlinks {
-            /*text-align: center; Centraliza o texto */
             font-size: 1em; 
             color: #333;
             margin: 0;
             padding: 0;
             line-height: 1.6;
+        }
+
+        .hiperlinks span, .hiperlinks a {
+            display: inline; /* Garante que os elementos fiquem na mesma linha */
+            margin-left: 5px;
         }
 
         .hiperlinks a {
@@ -113,9 +124,73 @@
         }
 
         .hiperlinks a:hover {
-            color: #555; /* Altera para cinza escuro ao passar o mouse */
+            color: #555;
         }
 
+        /* Estilo geral para centralizar a tabela */
+        .damage-multipliers {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        /* Estilo para a tabela */
+        .damage-multipliers table {
+            width: 40%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #eaeaea;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Estilo específico para o cabeçalho "Multiplicadores de Dano" */
+        .damage-multipliers th.header {
+            text-align: center;
+            font-size: 1.5em;
+            color: black;
+            background-color: #f1f1f1;
+            padding: 15px;
+            width: 100%;
+        }
+
+        /* Estilo para os cabeçalhos dos elementos */
+        .damage-multipliers th {
+            background-color: #eaeaea;
+            color: black;
+            padding: 10px;
+            font-size: 1.2em;
+        }
+
+        /* Estilo para as células dos multiplicadores */
+        .damage-multipliers td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            font-size: 1.1em;
+        }
+
+        .damage-multipliers .normal {color: rgb(151, 135, 135);}
+        .damage-multipliers .fire {color: red;}
+        .damage-multipliers .water {color: rgb(147, 196, 239);}
+        .damage-multipliers .grass {color: green;}
+        .damage-multipliers .electric {color: rgb(185, 185, 3);}
+        .damage-multipliers .ice {color: rgb(2, 173, 173);}
+        .damage-multipliers .flying {color: #87CEEB;}
+        .damage-multipliers .flying {color: #87CEEB;}
+        .damage-multipliers .bug {color: rgb(90, 215, 167);}
+        .damage-multipliers .rock {color: #A0522D;}
+        .damage-multipliers .ground {color: #DEB887;}
+        .damage-multipliers .psychic {color: rgb(243, 64, 243);}
+        .damage-multipliers .fighting {color: rgb(243, 64, 243);}
+        .damage-multipliers .poison {color: rgb(88, 2, 88);}
+        .damage-multipliers .dark {color: black;}
+        .damage-multipliers .fairy {color: pink;}
+        .damage-multipliers .steel {color: gray;}
+        .damage-multipliers .dragon {color: rgb(22, 0, 188);}
+        .damage-multipliers .ghost {color: #6A5ACD; /* Azul escuro */}
         
     </style>
 </head>
@@ -243,15 +318,104 @@
 
         <div class="section">
             <h3>Ovos</h3>
-            <p class="hiperlinks">
-                {% for ovo in ovos %}
-                    <a href="{{ url_for('ovo', tipo_ovo = ovo) }}">
-                        {{ ovo }}
-                    </a>
-                    <br> <!-- Quebra linha -->
-                {% endfor %}
+            <p>
+                <span>Grupo(s):</span>
+                <span class="hiperlinks">
+                    {% for ovo in ovos %}
+                        <a href="{{ url_for('ovo', tipo_ovo = ovo) }}">
+                            {{ ovo }}
+                        </a>
+                    {% endfor %}
+                </span>
             </p>
+
+            <p>Ciclos: {{ pokemon[12] }}</p>
+
+            {% if pokemon[5] %}
+                <p>Gênero: {{ pokemon[5] }}% macho, {{ 100 - pokemon[5] }}% fêmea</p>
+            {% else %}
+                <p>Gênero: Não tem</p>
+            {% endif %}
+
         </div>
+
+        <div class="section">
+            <h3>Informações Gerais</h3>
+
+            <br>
+
+            <h2>Identificação</h2>
+            <p>Número Pokedex: {{ pokemon[0] }}</p>
+            <p>Espécie: {{ pokemon[2] }}</p>
+            <p>Raridade: {{ pokemon[6] }}</p>
+
+            <br>
+
+            <h2>Treinamento</h2>
+
+            <p>Taxa de Captura: {{ pokemon[13] }}</p>
+            <p>Amizade Base: {{ pokemon[14] }}</p>
+            <p>Experiência Base: {{ pokemon[15] }}</p>
+            <p>Taxa de Treinamento: {{ pokemon[16] }}</p>
+
+            <br>
+
+            <h2>Características</h2>
+            <p>Peso: {{ pokemon[3] }} kg</p>
+            <p>Altura: {{ pokemon[4] }} m</p>
+
+            <br>
+
+        </div>
+    </div>
+
+    <div class="damage-multipliers">
+        <table>
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <th colspan="{{ multiplicadores|length }}">
+                        Multiplicadores de Dano
+                    </th>
+                </tr>
+
+                <tr>
+                    {% for elemento in multiplicadores[:(multiplicadores|length // 2)] %}
+                        <th class="{{ elemento[0]|lower }}">
+                            {{ elemento[0] | capitalize }}
+                        </th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for elemento in multiplicadores[:(multiplicadores|length // 2)] %}
+                        <td>
+                            {{ elemento[1] }}
+                        </td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    {% for elemento in multiplicadores[(multiplicadores|length // 2):] %}
+                        <th class="{{ elemento[0]|lower }}">
+                            {{ elemento[0] | capitalize }}
+                        </th>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    {% for elemento in multiplicadores[(multiplicadores|length // 2):] %}
+                        <td>
+                            {{ elemento[1] }}
+                        </td>
+                    {% endfor %}
+                </tr>
+
+
+            </tbody>
+        </table>
+    </div>
+    
 
 
 </body>
