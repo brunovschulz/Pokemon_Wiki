@@ -92,7 +92,24 @@ def pokedex():
 
 @app.route('/top-pokemons')
 def top_pokemons():
-    return render_template('top_pokemons.html') 
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    #lendarios
+    cursor.execute(qr_lendario())
+    lendarios = cursor.fetchall()
+
+    #top Pokémon por elemento
+    cursor.execute(qr_topEl())
+    pokeTopEle = cursor.fetchall()
+
+    conn.close()
+
+    print(lendarios)
+    print(pokeTopEle)
+
+    return render_template('top_pokemons.html', lendarios= lendarios,
+    pokeTopEle = pokeTopEle) 
 
 #lista os tipos de ovo
 @app.route('/ovos')
@@ -121,4 +138,16 @@ def ovo(tipo_ovo):
     print(pokemon_ovo)
     conn.close()
     return render_template('ovo.html', pokemon_ovo = pokemon_ovo, nome_ovo = tipo_ovo) 
+
+@app.route('/habilidades_secretas')
+def hab_sec():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    #Pokémons e suas habilidades secretas
+    cursor.execute(qr_habSec())
+    habSecPoke = cursor.fetchall()
+
+    conn.close()
+    return render_template('hab_sec.html', habSecPoke = habSecPoke)
 

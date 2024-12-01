@@ -72,3 +72,34 @@ def qr_ovo_poke():
         union (select numero_pokedex, nome, ovo_tipo1 as outro_tipo from Pokemon natural join ovo where ovo_tipo2 = %s)) as tabela_ovo
         """
     )
+
+#QUERRYS PARA TOP POKÉMONS
+def qr_lendario():
+    return (
+    """
+    select nome, raridade from Pokemon where raridade != 'Normal';
+    """
+    )
+
+def qr_topEl():
+    return (
+    """
+    select nome, nome_elemento, total_pontos 
+    from (Pokemon natural join Status_Combate) join Elemento on ID_elemento_primario = ID_elemento or ID_elemento_secundario = ID_elemento 
+    where (nome_elemento, total_pontos) in 
+    (select nome_elemento, MAX(total_pontos) 
+    from (Pokemon natural join Status_Combate) join Elemento on ID_elemento_primario = ID_elemento or ID_elemento_secundario  = ID_elemento 
+    group by nome_elemento); 
+    """
+    )
+
+#QUERRY PARA ABA HABILIDADES SECRETAS
+
+def qr_habSec():
+    return (
+    """
+    select nome, nome_habilidade 
+    from Pokemon left join (select numero_pokedex, nome_habilidade from possui_habilidade natural join habilidade where habilidade_secreta = 1)
+     as poke_hab_sec on Pokemon.numero_pokedex = poke_hab_sec.numero_pokedex;
+    """
+    )
