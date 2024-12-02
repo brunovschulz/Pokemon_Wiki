@@ -74,17 +74,19 @@ def qr_ovo_poke():
     )
 
 #QUERRYS PARA TOP POKÉMONS
+#PRECISA ALTERAR NA DOCUMENTAÇÃO
 def qr_lendario():
     return (
     """
-    select nome, raridade from Pokemon where raridade != 'Normal';
+    select numero_pokedex, nome, raridade from Pokemon where raridade != 'Normal';
     """
     )
 
+#PRECISA ALTERAR NA DOCUMENTAÇÃO
 def qr_topEl():
     return (
     """
-    select nome, nome_elemento, total_pontos 
+    select numero_pokedex, nome, nome_elemento, total_pontos 
     from (Pokemon natural join Status_Combate) join Elemento on ID_elemento_primario = ID_elemento or ID_elemento_secundario = ID_elemento 
     where (nome_elemento, total_pontos) in 
     (select nome_elemento, MAX(total_pontos) 
