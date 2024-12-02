@@ -49,6 +49,73 @@
             background-color: white;
             color: black;
         }
+
+        h3 {
+            text-align: center;
+            font-size: 2em; 
+            margin-bottom: 10px; 
+            color: #333; 
+        }
+
+        .pokemon-grid {
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsivo */
+            gap: 20px; /* Espaço entre os cards */
+            padding: 20px;
+            justify-items: center;
+            align-items: center;
+            margin: 0 auto;
+            position: relative;
+            justify-content: center;
+        }
+
+        .pokemon-grid.fixed-columns {
+            grid-template-columns: repeat(6, 1fr);
+            width: 100%;
+            max-width: 1200px; 
+            margin: 0 auto;
+            justify-content: center; /* Centraliza cards na última linha*/
+        }
+
+        /* Estilo dos cards */
+        .pokemon-card {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        /* Estilo das imagens */
+        .pokemon-card img {
+            max-width: 100%; /* Ajusta a largura da imagem ao card */
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        /* Faz o link ocupar todo o card */
+        .pokemon-card-link {
+            text-decoration: none; /* Remove o sublinhado dos links */
+            color: inherit; /* Mantém a cor padrão do texto */
+            display: block; /* Faz o link ocupar todo o card */
+        }
+
+        .pokemon-card:hover {
+            transform: scale(1.05); /* Efeito de zoom no hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra maior no hover */
+        }
+
+
+        /* Estilo dos títulos */
+        .pokemon-card h3 {
+            margin: 0;
+            font-size: 1em;
+            color: #333;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -66,11 +133,25 @@
     </div>
 
     <br>
-    <div style="text-align: center;">
 
-        <h1> Pokémon e suas Habilidades Secretas </h1>
+    <h3>Habilidades Secretas</h1>
 
-    </div>
+        <div class="pokemon-grid fixed-columns">
+            {% for pokemon in habSecPoke %}
+                <a href="{{ url_for('pokemon_page', pokemon_id=pokemon[0]) }}" class="pokemon-card-link">
+                    <div class="pokemon-card">
+                        <img src="{{ url_for('static', filename='images/' + pokemon[0]|string + '.png') }}" alt="{{ pokemon[1] }}" style="display: block; margin: auto;">
+                        <h3>#{{ pokemon[0] }} - {{ pokemon[1] }}</h3>
+                        {% if pokemon[2]|string != "None" %}
+                            <h3>{{ pokemon[2] }}</h3>
+                        {% else %}
+                            <h3>Não tem</h3>
+                        {% endif %}
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+
 
 </body>
 </html>

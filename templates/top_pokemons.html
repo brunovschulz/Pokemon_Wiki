@@ -63,6 +63,13 @@
             position: relative;
         }
 
+        .pokemon-grid.fixed-columns {
+            grid-template-columns: repeat(5, 1fr); /* Limita para 3 colunas */
+            width: 100%;
+            max-width: 1000px; /* Opcional, pode ajustar para limitar largura total */
+            margin: 0 auto; /* Centraliza na página */
+        }
+
         /* Estilo dos cards */
         .pokemon-card {
             background-color: #f9f9f9;
@@ -132,7 +139,26 @@
                     </div>
                 </a>
             {% endfor %}
-        </div>                
+        </div>   
+        
+        <br>
+        <br>
+
+        <h1> Melhores Pokémon por Elemento </h1>
+
+        <div class="pokemon-grid fixed-columns">
+            {% for pokemon in pokeTopEle %}
+                <a href="{{ url_for('pokemon_page', pokemon_id=pokemon[0]) }}" class="pokemon-card-link">
+                    <div class="pokemon-card">
+                        <h3>{{pokemon[2]}}</h3>
+                        <img src="{{ url_for('static', filename='images/' + pokemon[0]|string + '.png') }}" alt="{{ pokemon[1] }}" style="display: block; margin: auto;">
+                        <h3>#{{ pokemon[0] }} - {{ pokemon[1] }}</h3>
+                        <h3>{{pokemon[3]}} pontos</h3>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+
 
     </div>
 

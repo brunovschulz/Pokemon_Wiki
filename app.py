@@ -148,6 +148,8 @@ def hab_sec():
     cursor.execute(qr_habSec())
     habSecPoke = cursor.fetchall()
 
+    print(habSecPoke)
+
     conn.close()
     return render_template('hab_sec.html', habSecPoke = habSecPoke)
 

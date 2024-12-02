@@ -97,11 +97,12 @@ def qr_topEl():
 
 #QUERRY PARA ABA HABILIDADES SECRETAS
 
+#PRECISA ALTERAR NA DOCUMENTAÇÃO
 def qr_habSec():
     return (
     """
-    select nome, nome_habilidade 
+    select pokemon.numero_pokedex, nome, nome_habilidade 
     from Pokemon left join (select numero_pokedex, nome_habilidade from possui_habilidade natural join habilidade where habilidade_secreta = 1)
-     as poke_hab_sec on Pokemon.numero_pokedex = poke_hab_sec.numero_pokedex;
+     as poke_hab_sec on Pokemon.numero_pokedex = poke_hab_sec.numero_pokedex order by pokemon.numero_pokedex;
     """
     )
