@@ -57,8 +57,8 @@
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsivo */
             gap: 20px; /* Espaço entre os cards */
             padding: 20px;
-            justify-items: center; /* Centraliza cards horizontalmente */
-            align-items: center; /* Centraliza conteúdo dos cards */
+            justify-items: center;
+            align-items: center; 
             margin: 0 auto;
             position: relative;
         }
@@ -66,12 +66,13 @@
         .pokemon-grid.fixed-columns {
             grid-template-columns: repeat(5, 1fr); /* Limita para 3 colunas */
             width: 100%;
-            max-width: 1000px; /* Opcional, pode ajustar para limitar largura total */
+            max-width: 1000px; 
             margin: 0 auto; /* Centraliza na página */
         }
 
         /* Estilo dos cards */
         .pokemon-card {
+            max-width: 200px;
             background-color: #f9f9f9;
             border: 1px solid #ddd;
             border-radius: 8px;
@@ -82,7 +83,7 @@
 
         /* Estilo das imagens */
         .pokemon-card img {
-            max-width: 100%; /* Ajusta a largura da imagem ao card */
+            max-width: 100%;
             height: auto;
             border-radius: 5px;
             margin-bottom: 10px;
@@ -90,9 +91,9 @@
 
         /* Faz o link ocupar todo o card */
         .pokemon-card-link {
-            text-decoration: none; /* Remove o sublinhado dos links */
-            color: inherit; /* Mantém a cor padrão do texto */
-            display: block; /* Faz o link ocupar todo o card */
+            text-decoration: none;
+            color: inherit; 
+            display: block; 
         }
 
         .pokemon-card:hover {
@@ -107,6 +108,47 @@
             font-size: 1em;
             color: #333;
             font-weight: bold;
+        }
+
+        h3 {
+            text-align: center;
+            font-size: 1.4em; 
+            margin-bottom: 10px; 
+            color: #333; 
+        }
+
+        #results {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 40vh;
+        }
+
+        /* Estilo geral do select */
+        #attribute-select {
+            appearance: none; /* Remove o estilo padrão do navegador */
+            width: 100%;
+            max-width: 200px;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #000000;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            color: #333;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Adicionar seta personalizada */
+        #attribute-select::-ms-expand {
+            display: none;
+        }
+
+        /* Estilo ao focar (clicar no campo) */
+        #attribute-select:focus {
+            outline: none;
+            border-color: #000000;
+            box-shadow: 0 0 4px #000000;
         }
 
     </style>
@@ -158,6 +200,75 @@
                 </a>
             {% endfor %}
         </div>
+
+        <br>
+
+        <div>
+            <h1>Melhores Pokémon por Atributo</h1>
+            <h3>Selecione um atributo:</h3>
+            <select id="attribute-select">
+                <option value="" disabled selected>Escolha um atributo...</option>
+                <option value="vida">Hp</option>
+                <option value="ataque">Ataque</option>
+                <option value="defesa">Defesa</option>
+                <option value="esp_ataque">Esp Ataque</option>
+                <option value="esp_defesa">Esp Defesa</option>
+                <option value="velocidade">Velocidade</option>
+                <option value="total_pontos">Total</option>
+            </select>
+        </div>
+        
+        <!-- Div onde os resultados serão exibidos -->
+        <div id="results"></div>
+
+        <br>
+
+        <script>
+            document.getElementById("attribute-select").addEventListener("change", function () {
+                const attribute = this.value;
+                console.log("Atributo selecionado:", attribute);
+                fetch(`/get_attribute?attribute=${attribute}`)
+                    .then(response => {
+                        console.log("Resposta do servidor:", response);
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log("Dados recebidos:", data);
+                        const resultsDiv = document.getElementById("results");
+                        resultsDiv.innerHTML = ""; // Limpa resultados anteriores
+
+                        data.forEach(pokemon => {
+                            console.log("Gerando card para:", pokemon);
+                            // Criação do card
+                            const link = document.createElement("a");
+                            link.href = `/pokemon/${pokemon.id}`;
+                            link.className = "pokemon-card-link";
+
+                            const card = document.createElement("div");
+                            card.className = "pokemon-card";
+
+                            const img = document.createElement("img");
+                            img.src = `/static/images/${pokemon.id}.png`;
+                            img.alt = pokemon.name;
+
+                            const title = document.createElement("h3");
+                            title.textContent = `#${pokemon.id} - ${pokemon.name}`;
+
+                            const att = document.createElement("h3");
+                            att.textContent = `${pokemon.att_name}: ${pokemon.attribute}`;
+
+                            card.appendChild(img);
+                            card.appendChild(title);
+                            card.appendChild(att);
+
+                            link.appendChild(card);
+
+                            resultsDiv.appendChild(link);
+                        });
+                    })
+                    .catch(error => console.error("Erro ao buscar dados:", error));
+            });
+        </script>
 
 
     </div>

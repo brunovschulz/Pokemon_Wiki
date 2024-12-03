@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify
 import pymysql
 from querrys import *
 
@@ -152,4 +152,53 @@ def hab_sec():
 
     conn.close()
     return render_template('hab_sec.html', habSecPoke = habSecPoke)
+
+#consulta dinâmica
+@app.route('/get_attribute', methods=['GET'])
+def get_attribute():
+    # Obtém o parâmetro 'generation' da solicitação
+    attribute = request.args.get('attribute')
+
+    print(attribute)
+
+    # Conexão com o banco de dados
+    connection = get_db_connection()
+    cursor = connection.cursor()
+
+    # Consulta dinâmica
+    query = f"""
+    select numero_pokedex, nome, {attribute}, "{attribute}" from status_combate natural join pokemon where {attribute} = (select max({attribute}) from status_combate);
+    """
+    cursor.execute(query)
+    results = cursor.fetchall()
+
+    print(results)
+
+    # Fecha conexão
+    cursor.close()
+    connection.close()
+
+    # Converte resultados para JSON
+
+    pokemons = []
+
+    for r in results:
+        aux = ""
+        if r[3] == 'vida':
+            aux = 'Hp'
+        elif r[3] == 'ataque':
+            aux = 'Ataque'
+        elif r[3] == 'defesa':
+            aux = 'Defesa'
+        elif r[3] == 'esp_ataque':
+            aux = 'Ataque Especial'
+        elif r[3] == 'esp_defesa':
+            aux = 'Defesa Especial'
+        elif r[3] == 'velocidade':
+            aux = 'Velocidade'
+        else:
+            aux = 'Pontuação Total'
+        pokemons.append({'id': r[0], 'name': r[1], 'attribute': r[2], 'att_name': aux})
+
+    return jsonify(pokemons)
 
