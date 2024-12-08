@@ -1,0 +1,18 @@
+/* Estilo para hiperlinks */
+.hiperlinks {
+    font-size: 1em; 
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+.hiperlinks a {
+    text-decoration: none; /* Remove sublinhado dos links */
+    color: #333;
+    font-weight: bold;
+}
+
+.hiperlinks a:hover {
+    color: #555; /* Altera para cinza escuro ao passar o mouse */
+}

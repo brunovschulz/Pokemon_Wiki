@@ -19,7 +19,6 @@ def qr_poke():
         "select * from (((pokemon natural join ovo) natural join treinamento) natural join status_combate) where numero_pokedex = %s"
     )
 
-#FALTA COLOCAR ESSA CONSULTA NA DOCUMENTAÇÃO
 def qr_el():
     return (
         "select * from elemento where ID_elemento = %s or ID_elemento = %s"
@@ -55,7 +54,6 @@ def qr_hab():
 
 #QUERRYS PARA OVOS
 
-#FALTA ALTERAR ESSA CONSULTA NA DOCUMENTAÇÃO
 def qr_ovos():
     return (
         """
@@ -70,11 +68,12 @@ def qr_ovo_poke():
         select numero_pokedex, nome, outro_tipo from 
         ((select numero_pokedex, nome, ovo_tipo2 as outro_tipo from Pokemon natural join ovo where ovo_tipo1 = %s) 
         union (select numero_pokedex, nome, ovo_tipo1 as outro_tipo from Pokemon natural join ovo where ovo_tipo2 = %s)) as tabela_ovo
+        order by numero_pokedex
         """
     )
 
 #QUERRYS PARA TOP POKÉMONS
-#PRECISA ALTERAR NA DOCUMENTAÇÃO
+
 def qr_lendario():
     return (
     """
@@ -82,7 +81,6 @@ def qr_lendario():
     """
     )
 
-#PRECISA ALTERAR NA DOCUMENTAÇÃO
 def qr_topEl():
     return (
     """
@@ -97,7 +95,6 @@ def qr_topEl():
 
 #QUERRY PARA ABA HABILIDADES SECRETAS
 
-#PRECISA ALTERAR NA DOCUMENTAÇÃO
 def qr_habSec():
     return (
     """

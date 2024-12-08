@@ -75,9 +75,9 @@ def pokemon_page(pokemon_id):
     pokemon=pokemon, elementos=elementos, evolucoes=evolucoes, habilidades = habilidades, 
     habilidades_secretas = habilidades_secretas, multiplicadores = multiplicadores, atrib = atrib, ovos = ovos)
 
-@app.route('/pokedex') #troquei rota com pokedex para facilitar
-def home():
-    return render_template('home.html')
+#@app.route('/pokedex') #troquei rota com pokedex para facilitar
+#def home():
+#    return render_template('home.html')
 
 @app.route('/')
 def pokedex():

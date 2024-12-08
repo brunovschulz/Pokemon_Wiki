@@ -4,151 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Top Pokémons</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/poke_grid.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/drop_down.css') }}">
+
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: #d3d3d3;
-            padding: 10px 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .header img {
-            height: 50px;
-        }
-
-        .header a img {
-            transition: transform 0.3s ease; /* Adiciona animação */
-        }
-
-        .header a img:hover {
-            transform: scale(1.1); /* Aumenta levemente o tamanho ao passar o mouse */
-        }
-
-        .nav-buttons { /*   */
-            display: flex;
-            gap: 15px;
-        }
-
-        .nav-buttons a { 
-            text-decoration: none;
-            color: black; /* cor do texto  */
-            font-size: 18px;
-            padding: 10px 15px;
-            border-radius: 5px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .nav-buttons a:hover { 
-            background-color: white;
-            color: black;
-        }
-
-        /* Container do grid */
-        .pokemon-grid {
-            max-width: 1000px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsivo */
-            gap: 20px; /* Espaço entre os cards */
-            padding: 20px;
-            justify-items: center;
-            align-items: center; 
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .pokemon-grid.fixed-columns {
-            grid-template-columns: repeat(5, 1fr); /* Limita para 3 colunas */
-            width: 100%;
-            max-width: 1000px; 
-            margin: 0 auto; /* Centraliza na página */
-        }
-
-        /* Estilo dos cards */
-        .pokemon-card {
-            max-width: 200px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        /* Estilo das imagens */
-        .pokemon-card img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-
-        /* Faz o link ocupar todo o card */
-        .pokemon-card-link {
-            text-decoration: none;
-            color: inherit; 
-            display: block; 
-        }
-
-        .pokemon-card:hover {
-            transform: scale(1.05); /* Efeito de zoom no hover */
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra maior no hover */
-        }
-
-
-        /* Estilo dos títulos */
-        .pokemon-card h3 {
-            margin: 0;
-            font-size: 1em;
-            color: #333;
-            font-weight: bold;
-        }
 
         h3 {
             text-align: center;
-            font-size: 1.4em; 
+            font-size: 2em; 
             margin-bottom: 10px; 
             color: #333; 
         }
 
-        #results {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 40vh;
-        }
-
-        /* Estilo geral do select */
-        #attribute-select {
-            appearance: none; /* Remove o estilo padrão do navegador */
-            width: 100%;
-            max-width: 200px;
-            padding: 10px;
-            font-size: 16px;
-            border: 2px solid #000000;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-            color: #333;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Adicionar seta personalizada */
-        #attribute-select::-ms-expand {
-            display: none;
-        }
-
-        /* Estilo ao focar (clicar no campo) */
-        #attribute-select:focus {
-            outline: none;
-            border-color: #000000;
-            box-shadow: 0 0 4px #000000;
+        h1 {
+            text-align: center;
+            font-size: 1.4em; 
+            margin-bottom: 10px; 
+            color: #000000; 
         }
 
     </style>
@@ -160,17 +34,18 @@
         </a>
 
         <div class="nav-buttons">
-            <a href="/pokedex">Pokedex</a>
+            <a href="/">Pokedex</a>
             <a href="/top-pokemons">Top Pokémons</a>
             <a href="/ovos">Ovos</a>
             <a href="/habilidades_secretas">Habilidades Secretas</a>
         </div>
     </div>
 
-    <br>
+    <h4>Top Pokémons</h4>
+
     <div style="text-align: center;">
 
-        <h1> Lendários </h1>
+        <h3> Lendários </h3>
 
         <div class="pokemon-grid">
             {% for lendario in lendarios %}
@@ -186,7 +61,7 @@
         <br>
         <br>
 
-        <h1> Melhores Pokémon por Elemento </h1>
+        <h3> Melhores Pokémon por Elemento </h3>
 
         <div class="pokemon-grid fixed-columns">
             {% for pokemon in pokeTopEle %}
@@ -204,8 +79,8 @@
         <br>
 
         <div>
-            <h1>Melhores Pokémon por Atributo</h1>
-            <h3>Selecione um atributo:</h3>
+            <h3>Melhores Pokémon por Atributo</h3>
+            <h1>Selecione um atributo:</h1>
             <select id="attribute-select">
                 <option value="" disabled selected>Escolha um atributo...</option>
                 <option value="vida">Hp</option>
@@ -223,53 +98,7 @@
 
         <br>
 
-        <script>
-            document.getElementById("attribute-select").addEventListener("change", function () {
-                const attribute = this.value;
-                console.log("Atributo selecionado:", attribute);
-                fetch(`/get_attribute?attribute=${attribute}`)
-                    .then(response => {
-                        console.log("Resposta do servidor:", response);
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log("Dados recebidos:", data);
-                        const resultsDiv = document.getElementById("results");
-                        resultsDiv.innerHTML = ""; // Limpa resultados anteriores
-
-                        data.forEach(pokemon => {
-                            console.log("Gerando card para:", pokemon);
-                            // Criação do card
-                            const link = document.createElement("a");
-                            link.href = `/pokemon/${pokemon.id}`;
-                            link.className = "pokemon-card-link";
-
-                            const card = document.createElement("div");
-                            card.className = "pokemon-card";
-
-                            const img = document.createElement("img");
-                            img.src = `/static/images/${pokemon.id}.png`;
-                            img.alt = pokemon.name;
-
-                            const title = document.createElement("h3");
-                            title.textContent = `#${pokemon.id} - ${pokemon.name}`;
-
-                            const att = document.createElement("h3");
-                            att.textContent = `${pokemon.att_name}: ${pokemon.attribute}`;
-
-                            card.appendChild(img);
-                            card.appendChild(title);
-                            card.appendChild(att);
-
-                            link.appendChild(card);
-
-                            resultsDiv.appendChild(link);
-                        });
-                    })
-                    .catch(error => console.error("Erro ao buscar dados:", error));
-            });
-        </script>
-
+        <script type="module" src="{{ url_for('static', filename='js/dinamic_top_poke.js') }}"></script>
 
     </div>
 

@@ -4,60 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ovos</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/info_box.css') }}">
+
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
 
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: #d3d3d3;
-            padding: 10px 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .header img {
-            height: 50px;
-        }
-
-        .header a img {
-            transition: transform 0.3s ease; /* Adiciona animação */
-        }
-
-        .header a img:hover {
-            transform: scale(1.1); /* Aumenta levemente o tamanho ao passar o mouse */
-        }
-
-        .nav-buttons { /*   */
-            display: flex;
-            gap: 15px;
-        }
-
-        .nav-buttons a { 
-            text-decoration: none;
-            color: black; /* cor do texto  */
-            font-size: 18px;
-            padding: 10px 15px;
-            border-radius: 5px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .nav-buttons a:hover { 
-            background-color: white;
-            color: black;
-        }
-
-        /* Caixa com a Pokedex */
+        /* Alterações na info_box */
         .info-box {
             width: 400px;
-            margin: 20px auto; 
-            background-color: #eaeaea;
-            border-radius: 15px; /* Bordas arredondadas */
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+            text-align: center;
         }
 
         .info-box h3 {
@@ -65,49 +21,6 @@
             font-size: 1.5em; 
             margin-bottom: 10px; 
             color: #333; 
-        }
-
-        /* seções da caixa */
-        .section {
-            padding: 10px 0;
-            text-align: center;
-        }
-
-        .section:not(:last-child) {
-            border-bottom: 1px solid white; /* Linha branca entre seções */
-        }
-
-        /* Títulos das seções */
-        .section h3 {
-            margin: 0; 
-            font-size: 1.2em; 
-            color: #333;
-        }
-
-        /* Texto das seções */
-        .section p {
-            margin: 10px 0 0;
-            font-size: 1em;
-            color: #555;
-        }
-
-        /* Estilo para hiperlinks */
-        .hiperlinks {
-            font-size: 1em; 
-            color: #333;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
-
-        .hiperlinks a {
-            text-decoration: none; /* Remove sublinhado dos links */
-            color: #333;
-            font-weight: bold;
-        }
-
-        .hiperlinks a:hover {
-            color: #555; /* Altera para cinza escuro ao passar o mouse */
         }
 
     </style>
@@ -119,7 +32,7 @@
         </a>
 
         <div class="nav-buttons">
-            <a href="/pokedex">Pokedex</a>
+            <a href="/">Pokedex</a>
             <a href="/top-pokemons">Top Pokémons</a>
             <a href="/ovos">Ovos</a>
             <a href="/habilidades_secretas">Habilidades Secretas</a>

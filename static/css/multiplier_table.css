@@ -1,0 +1,64 @@
+/* Estilo geral para centralizar a tabela */
+.damage-multipliers {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+/* Estilo para a tabela */
+.damage-multipliers table {
+    width: 40%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #eaeaea;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo específico para o cabeçalho "Multiplicadores de Dano" */
+.damage-multipliers th.header {
+    text-align: center;
+    font-size: 1.5em;
+    color: black;
+    background-color: #f1f1f1;
+    padding: 15px;
+    width: 100%;
+}
+
+/* Estilo para os cabeçalhos dos elementos */
+.damage-multipliers th {
+    background-color: #eaeaea;
+    color: black;
+    padding: 10px;
+    font-size: 1.2em;
+}
+
+/* Estilo para as células dos multiplicadores */
+.damage-multipliers td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    font-size: 1.1em;
+}
+
+.damage-multipliers .normal {color: rgb(151, 135, 135);}
+.damage-multipliers .fire {color: red;}
+.damage-multipliers .water {color: rgb(147, 196, 239);}
+.damage-multipliers .grass {color: green;}
+.damage-multipliers .electric {color: rgb(185, 185, 3);}
+.damage-multipliers .ice {color: rgb(2, 173, 173);}
+.damage-multipliers .flying {color: #87CEEB;}
+.damage-multipliers .flying {color: #87CEEB;}
+.damage-multipliers .bug {color: rgb(90, 215, 167);}
+.damage-multipliers .rock {color: #A0522D;}
+.damage-multipliers .ground {color: #DEB887;}
+.damage-multipliers .psychic {color: rgb(243, 64, 243);}
+.damage-multipliers .fighting {color: rgb(243, 64, 243);}
+.damage-multipliers .poison {color: rgb(88, 2, 88);}
+.damage-multipliers .dark {color: black;}
+.damage-multipliers .fairy {color: pink;}
+.damage-multipliers .steel {color: gray;}
+.damage-multipliers .dragon {color: rgb(22, 0, 188);}
+.damage-multipliers .ghost {color: #6A5ACD; /* Azul escuro */}

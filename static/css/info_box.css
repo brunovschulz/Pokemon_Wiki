@@ -1,0 +1,66 @@
+/* Caixa centralizada embaixo do gráfico de atributos de combate*/
+.info-box {
+    width: 800px;
+    margin: 20px auto; 
+    background-color: #eaeaea;
+    border-radius: 15px; /* Bordas arredondadas */
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+}
+
+/* seções da caixa */
+.section {
+    padding: 10px 0;
+    /*text-align: center; Centraliza texto */
+}
+
+.section:not(:last-child) {
+    border-bottom: 1px solid white; /* Linha branca entre seções */
+}
+
+/* Títulos das seções */
+.section h3 {
+    margin: 0; 
+    font-size: 1.2em; 
+    text-align: justify !important;
+    color: #333;
+}
+
+/* Títulos das subseções */
+.section h2 {
+    margin: 8px; 
+    font-size: 1.2em; 
+    color: #333;
+}
+
+/* Texto das seções */
+.section p {
+    margin: 14px 0 0;
+    margin-left: 10px;
+    font-size: 1em;
+    color: #555;
+}
+
+/* Estilo para hiperlinks */
+.hiperlinks {
+    font-size: 1em; 
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+.hiperlinks span, .hiperlinks a {
+    display: inline; /* Garante que os elementos fiquem na mesma linha */
+    margin-left: 5px;
+}
+
+.hiperlinks a {
+    text-decoration: none; /* Remove sublinhado dos links */
+    color: #333;
+    font-weight: bold;
+}
+
+.hiperlinks a:hover {
+    color: #555;
+}
