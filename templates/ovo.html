@@ -28,8 +28,8 @@
         </a>
 
         <div class="nav-buttons">
-            <a href="/">Pokedex</a>
-            <a href="/top-pokemons">Top Pokémons</a>
+            <a href="/">Pokédex</a>
+            <a href="/top-pokemons">Top Pokémon</a>
             <a href="/ovos">Ovos</a>
             <a href="/habilidades_secretas">Habilidades Secretas</a>
         </div>
@@ -43,6 +43,11 @@
                 <div class="pokemon-card">
                     <img src="{{ url_for('static', filename='images/' + pokemon[0]|string + '.png') }}" alt="{{ pokemon[1] }}" style="display: block; margin: auto;">
                     <h3>#{{ pokemon[0] }} - {{ pokemon[1] }}</h3>
+                    {% if pokemon[2]|string != "None" %}
+                        <h3>2° Grupo: {{ pokemon[2] }}</h3>
+                    {% else %}
+                        <h3>2° Grupo: Não tem</h3>
+                    {% endif %}
                 </div>
             </a>
         {% endfor %}
