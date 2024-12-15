@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import pymysql
-from querrys import *
+from queries import *
 
 app = Flask(__name__)
 

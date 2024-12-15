@@ -4,7 +4,7 @@ def get_db_connection():
     return pymysql.connect(host='localhost', user='root', password='123', database='pokemonbd')
 
 
-#QUERRY PAG POKEDEX
+#QUERY PAG POKEDEX
 
 def qr_pokedex():
     return (
@@ -12,7 +12,7 @@ def qr_pokedex():
     )
 
 
-#QUERRYS PARA POKEMON
+#QUERIES PARA POKEMON
 
 def qr_poke():
     return (
@@ -52,7 +52,7 @@ def qr_hab():
     )
 
 
-#QUERRYS PARA OVOS
+#QUERIES PARA OVOS
 
 def qr_ovos():
     return (
@@ -72,7 +72,7 @@ def qr_ovo_poke():
         """
     )
 
-#QUERRYS PARA TOP POKÉMONS
+#QUERIES PARA TOP POKÉMONS
 
 def qr_lendario():
     return (
@@ -93,7 +93,7 @@ def qr_topEl():
     """
     )
 
-#QUERRY PARA ABA HABILIDADES SECRETAS
+#QUERY PARA ABA HABILIDADES SECRETAS
 
 def qr_habSec():
     return (
